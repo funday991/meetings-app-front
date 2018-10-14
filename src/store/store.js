@@ -1,14 +1,15 @@
 import newUserReducer from '../reducers/newUserReducer';
-import { createStore } from 'redux';
-import SAVE_PROFILE from '../actions/signup';
+import thunk from 'redux-thunk';
+import { createStore, applyMiddleware } from 'redux';
+
 
 export const initialStore = {
   user: {
-    username: 'anonim',
+    username: '',
     password: '',
     email: '',
   },
 }
 
-const store = createStore(newUserReducer);
+const store = createStore(newUserReducer, applyMiddleware(thunk));
 export default store;

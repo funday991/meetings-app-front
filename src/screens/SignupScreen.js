@@ -45,19 +45,7 @@ class Signup extends Component {
       email: this.state.email,
     };
 
-    axios
-      .post(`/rest-auth/${endpoint}/`, payload)
-      .then(response => {
-        const { token, user } = response.data;
-        axios.defaults.headers.common.Authorization = `Token ${token}`;
-        this.props.saveUser(
-          payload.username,
-          payload.password1,
-          payload.email,
-        )
-        Actions.main();
-      })
-      .catch(error => alert(error));
+    this.props.createNewUser(payload);
   }
 
   render() {
@@ -187,8 +175,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    saveUser: (username, password, email) => {
-      dispatch(createNewUser(username, password, email))
+    createNewUser: user => {
+      dispatch(createNewUser(user))
     }
   }
 }

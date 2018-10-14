@@ -2,16 +2,13 @@ import React, { Component } from 'react';
 import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import axios from 'axios';
+import { connect } from 'react-redux';
+import logout from '../actions/logout';
 
 
-export default class Footer extends Component {
+class FooterComponent extends Component {
   handleRequest() {
-    axios
-      .post('/rest-auth/logout/')
-      .then(response => {
-        Actions.auth();
-      })
-      .catch(error => alert(error));
+    this.props.logout();
   }
 
   render() {
@@ -71,3 +68,19 @@ const styles = StyleSheet.create({
     letterSpacing: 1.2,
   },
 });
+
+
+const mapStateToProps = (state) => {
+  return {user: state}
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    logout: () => {
+      dispatch(logout())
+    }
+  }
+}
+
+const Footer = connect(mapStateToProps, mapDispatchToProps)(FooterComponent);
+export default Footer;

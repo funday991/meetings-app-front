@@ -1,15 +1,13 @@
-/* eslint-disable global-require */
-
-
 import React, { Component } from 'react';
 import { Text, View, Image, StyleSheet, TouchableOpacity, TextInput } from 'react-native';
 import { LinearGradient } from 'expo';
 import axios from 'axios';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
+import login from '../actions/login';
 
 
-export default class LoginScreen extends Component {
+class Login extends Component {
   static navigationOptions = {
     header: null,
   };
@@ -34,14 +32,7 @@ export default class LoginScreen extends Component {
       password: this.state.password,
     };
 
-    axios
-      .post(`/rest-auth/${endpoint}/`, payload)
-      .then((response) => {
-        const { token, user } = response.data;
-        axios.defaults.headers.common.Authorization = `Token ${token}`;
-        Actions.main();
-      })
-      .catch(error => alert(error));
+    this.props.login(payload);
   }
 
   render() {
@@ -215,3 +206,19 @@ const styles = StyleSheet.create({
     letterSpacing: 0.9,
   },
 });
+
+
+const mapStateToProps = (state) => {
+  return {user: state}
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    login: user => {
+      dispatch(login(user))
+    }
+  }
+}
+
+const LoginScreen = connect(mapStateToProps, mapDispatchToProps)(Login);
+export default LoginScreen;
