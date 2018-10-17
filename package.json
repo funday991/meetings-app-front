@@ -11,6 +11,8 @@
   "dependencies": {
     "axios": "^0.18.0",
     "expo": "^30.0.0",
+    "express": "^4.16.4",
+    "http": "0.0.0",
     "pg-promise": "^8.5.0",
     "react": "16.3.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-30.0.0.tar.gz",
