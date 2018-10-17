@@ -25,9 +25,11 @@ class FooterComponent extends Component {
         </View>
 
         <View style={styles.textContainer2}>
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={Actions.chat}
+          >
             <Text style={styles.text}>
-              Export
+              Chat room
             </Text>
           </TouchableOpacity>
         </View>

@@ -5,6 +5,8 @@ import MakeMeetingScreen from '../screens/MakeMeetingScreen';
 import UserProfileScreen from '../screens/UserProfileScreen';
 import LoginScreen from '../screens/LoginScreen';
 import SignupScreen from '../screens/SignupScreen';
+import ChatScreen from '../screens/ChatScreen';
+
 
 const RouterComponent = () => (
   <Router>
@@ -31,6 +33,10 @@ const RouterComponent = () => (
           key="meetingList"
           component={MeetingsListScreen}
           initial
+        />
+        <Scene
+          key="chat"
+          component={ChatScreen}
         />
         <Scene
           key="makeMeeting"
