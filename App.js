@@ -1,9 +1,24 @@
 import React, { Component } from 'react';
 import { AppLoading, Font } from 'expo';
 import { Provider } from 'react-redux';
+import { AsyncStorage } from "react-native";
 import axios from 'axios';
 import RouterComponent from './src/routes/Router';
 import store from './src/store/store';
+import jwt_decode from 'jwt-decode';
+import setAuthToken from './src/setAuthToken';
+import { setCurrentUser, logoutUser } from './src/actions/logout';
+
+if(AsyncStorage.jwtToken) {
+  setAuthToken(AsyncStorage.jwtToken);
+  const decoded = jwt_decode(AsyncStorage.jwtToken);
+  store.dispatch(setCurrentUser(decoded));
+
+  const currentTime = Date.now() / 1000;
+  if(decoded.exp < currentTime) {
+    store.dispatch(logoutUser());
+  }
+}
 
 export default class App extends Component {
   constructor(props) {
@@ -14,7 +29,7 @@ export default class App extends Component {
   }
 
   componentWillMount() {
-    axios.defaults.baseURL = 'http://192.168.1.7:19003/api';
+    axios.defaults.baseURL = 'http://localhost:5000';
     axios.defaults.timeout = 60000;
   }
 

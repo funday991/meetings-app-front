@@ -35,22 +35,13 @@ export const invalidCreation = () => {
 
 export default function createNewUser(payload) {
   return dispatch => {
-    dispatch(sendingNewData());
     axios
-      .post(`/rest-auth/registration/`, payload)
+      .post('/api/users/register', payload)
       .then(response => {
-        const { token, user } = response.data;
-        axios.defaults.headers.common.Authorization = `Token ${token}`;
-        dispatch(saveNewUser({
-          username: payload.username,
-          password: payload.password1,
-          email: payload.email,
-        }));
         dispatch(createdUser());
-        Actions.main();
+        Actions.auth();
       })
       .catch(error => {
-        alert(error);
         dispatch(invalidCreation());
       });
   }

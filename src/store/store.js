@@ -6,9 +6,10 @@ import { createStore, applyMiddleware } from 'redux';
 export const initialStore = {
   user: {
     username: '',
-    password: '',
     email: '',
+    password: '',
   },
+  errors: {},
 }
 
 const store = createStore(newUserReducer, applyMiddleware(thunk));

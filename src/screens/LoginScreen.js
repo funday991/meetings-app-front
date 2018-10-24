@@ -13,12 +13,12 @@ class Login extends Component {
   };
 
   state = {
-    username: '',
+    email: '',
     password: '',
   };
 
-  onUsernameChange(text) {
-    this.setState({ username: text });
+  onEmailChange(text) {
+    this.setState({ email: text });
   }
 
   onPasswordChange(text) {
@@ -26,9 +26,8 @@ class Login extends Component {
   }
 
   handleRequest() {
-    const endpoint = 'login';
     const payload = {
-      username: this.state.username,
+      email: this.state.email,
       password: this.state.password,
     };
 
@@ -61,8 +60,8 @@ class Login extends Component {
             style={styles.form}
             autoCorrect={false}
             autoCapitalize='none'
-            onChangeText={this.onUsernameChange.bind(this)}
-            placeholder='Username'
+            onChangeText={this.onEmailChange.bind(this)}
+            placeholder='Email'
           />
           <View style={styles.line} />
           <TextInput

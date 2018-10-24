@@ -14,22 +14,22 @@ class Signup extends Component {
   };
 
   state = {
-    username: '',
-    password1: '',
-    password2: '',
+    name: '',
     email: '',
+    password: '',
+    password_confirm: '',
   };
 
-  onUsernameChange(text) {
-    this.setState({ username: text });
+  onNameChange(text) {
+    this.setState({ name: text });
   }
 
-  onPassword1Change(text) {
-    this.setState({ password1: text });
+  onPasswordChange(text) {
+    this.setState({ password: text });
   }
 
-  onPassword2Change(text) {
-    this.setState({ password2: text });
+  onPasswordConfirmChange(text) {
+    this.setState({ password_confirm: text });
   }
 
   onEmailChange(text) {
@@ -37,18 +37,19 @@ class Signup extends Component {
   }
 
   handleRequest() {
-    const endpoint = 'registration';
     const payload = {
-      username: this.state.username,
-      password1: this.state.password1,
-      password2: this.state.password2,
+      name: this.state.name,
       email: this.state.email,
+      password: this.state.password,
+      password_confirm: this.state.password_confirm,
     };
 
     this.props.createNewUser(payload);
   }
 
   render() {
+    const { errors } = this.state;
+
     return (
       <View style={styles.container}>
         <Header
@@ -67,27 +68,27 @@ class Signup extends Component {
             style={styles.titleInput}
             autoCorrect={false}
             autoCapitalize='none'
-            onChangeText={this.onUsernameChange.bind(this)}
+            onChangeText={this.onNameChange.bind(this)}
           />
           <View style={styles.line} />
         </View>
 
         <SignupForm
+          secure={false}
+          callback={this.onEmailChange.bind(this)}
+          placeholder='EMAIL'
+        />
+
+        <SignupForm
           secure
-          callback={this.onPassword1Change.bind(this)}
+          callback={this.onPasswordChange.bind(this)}
           placeholder='PASSWORD'
         />
 
         <SignupForm
           secure
-          callback={this.onPassword2Change.bind(this)}
+          callback={this.onPasswordConfirmChange.bind(this)}
           placeholder='REPEAT PASSWORD'
-        />
-
-        <SignupForm
-          secure={false}
-          callback={this.onEmailChange.bind(this)}
-          placeholder='EMAIL'
         />
 
         <TouchableOpacity

@@ -1,10 +1,14 @@
 import { Actions } from 'react-native-router-flux';
+import { AsyncStorage } from "react-native";
 import axios from 'axios';
+import setAuthToken from '../setAuthToken';
+import jwt_decode from 'jwt-decode';
 
 
 export const SENDING_DATA = 'SENDING_DATA';
 export const ERROR = 'ERROR';
 export const LOGGED_IN = 'LOGGED_IN';
+export const SET_CURRENT_USER = 'SET_CURRENT_USER';
 
 export const sendingData = () => {
   return {
@@ -19,6 +23,13 @@ export const loggedIn = (user) => {
   }
 }
 
+export const setCurrentUser = decoded => {
+    return {
+        type: SET_CURRENT_USER,
+        payload: decoded
+    }
+}
+
 export const invalidLogIn = () => {
   return {
     type: ERROR,
@@ -28,17 +39,18 @@ export const invalidLogIn = () => {
 
 export default function login(payload) {
   return dispatch => {
-    dispatch(sendingData());
     axios
-      .post(`/rest-auth/login/`, payload)
+      .post('/api/users/login', payload)
       .then(response => {
-        const { token, user } = response.data;
-        axios.defaults.headers.common.Authorization = `Token ${token}`;
+        const { token } = response.data;
+        AsyncStorage.setItem('jwtToken', token);
+        setAuthToken(token);
+        const decoded = jwt_decode(token);
         dispatch(loggedIn({
-          username: payload.username,
+          email: payload.email,
           password: payload.password,
-          email: user.email,
         }));
+        dispatch(setCurrentUser(decoded));
         Actions.main();
       })
       .catch(error => {
