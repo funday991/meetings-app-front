@@ -26,10 +26,10 @@ export const createdUser = () => {
   }
 };
 
-export const invalidCreation = () => {
+export const invalidCreation = (errors) => {
   return {
     type: ERROR,
-    payload: 'Invalid data',
+    payload: errors,
   }
 }
 
@@ -42,7 +42,7 @@ export default function createNewUser(payload) {
         Actions.auth();
       })
       .catch(error => {
-        dispatch(invalidCreation());
+        dispatch(invalidCreation(error.response.data));
       });
   }
 }

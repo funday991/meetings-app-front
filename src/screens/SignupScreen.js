@@ -18,6 +18,7 @@ class Signup extends Component {
     email: '',
     password: '',
     password_confirm: '',
+    errors: {},
   };
 
   onNameChange(text) {
@@ -36,7 +37,16 @@ class Signup extends Component {
     this.setState({ email: text });
   }
 
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.errors) {
+      this.setState({
+        errors: nextProps.errors
+      });
+    }
+  }
+
   handleRequest() {
+    alert(JSON.stringify(this.state.errors));
     const payload = {
       name: this.state.name,
       email: this.state.email,
@@ -78,6 +88,7 @@ class Signup extends Component {
           callback={this.onEmailChange.bind(this)}
           placeholder='EMAIL'
         />
+        {errors.email && alert(errors.email)}
 
         <SignupForm
           secure
@@ -170,9 +181,9 @@ const styles = StyleSheet.create({
 });
 
 
-const mapStateToProps = (state) => {
-  return {user: state}
-}
+const mapStateToProps = state => ({
+  errors: state.errors,
+});
 
 const mapDispatchToProps = (dispatch) => {
   return {

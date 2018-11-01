@@ -1,9 +1,17 @@
-import initialStore from '../store/store';
 import SAVE_PROFILE from '../actions/signup';
 import SENDING_DATA from '../actions/signup';
 import CREATED from '../actions/signup';
 import ERROR from '../actions/signup';
 
+
+export const initialStore = {
+  user: {
+    username: '',
+    email: '',
+    password: '',
+  },
+  errors: {},
+}
 
 const newUserReducer = (state=initialStore, action) => {
   switch (action.type) {
@@ -24,7 +32,7 @@ const newUserReducer = (state=initialStore, action) => {
     case ERROR:
       return {
         ...state,
-        error: action.payload,
+        errors: action.payload,
       }
     default:
       return state;
