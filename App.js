@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { AppLoading, Font } from 'expo';
 import { Provider } from 'react-redux';
-import { AsyncStorage } from "react-native";
+import { AsyncStorage } from 'react-native';
 import axios from 'axios';
 import RouterComponent from './src/routes/Router';
 import store from './src/store/store';
@@ -13,11 +13,6 @@ if(AsyncStorage.jwtToken) {
   setAuthToken(AsyncStorage.jwtToken);
   const decoded = jwt_decode(AsyncStorage.jwtToken);
   store.dispatch(setCurrentUser(decoded));
-
-  const currentTime = Date.now() / 1000;
-  if(decoded.exp < currentTime) {
-    store.dispatch(logoutUser());
-  }
 }
 
 export default class App extends Component {

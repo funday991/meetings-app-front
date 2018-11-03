@@ -15,6 +15,7 @@ class Login extends Component {
   state = {
     email: '',
     password: '',
+    errors: {},
   };
 
   onEmailChange(text) {
@@ -23,6 +24,14 @@ class Login extends Component {
 
   onPasswordChange(text) {
     this.setState({ password: text });
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.errors) {
+      this.setState({
+        errors: nextProps.errors
+      });
+    }
   }
 
   handleRequest() {
@@ -35,6 +44,8 @@ class Login extends Component {
   }
 
   render() {
+    var {errors} = this.state;
+
     return (
       <LinearGradient
         style={styles.container}
@@ -63,6 +74,7 @@ class Login extends Component {
             onChangeText={this.onEmailChange.bind(this)}
             placeholder='Email'
           />
+          {errors.email && <Text style={styles.errorEmail}>{errors.email}</Text>}
           <View style={styles.line} />
           <TextInput
             style={styles.form}
@@ -72,6 +84,7 @@ class Login extends Component {
             onChangeText={this.onPasswordChange.bind(this)}
             placeholder='Password'
           />
+          {errors.password && <Text style={styles.errorPassword}>{errors.password}</Text>}
         </View>
 
         <TouchableOpacity
@@ -204,14 +217,27 @@ const styles = StyleSheet.create({
     color: '#ffffff',
     letterSpacing: 0.9,
   },
+
+  errorEmail: {
+    color: 'red',
+    fontSize: 10,
+    position: 'absolute',
+  },
+
+  errorPassword: {
+    color: 'red',
+    fontSize: 10,
+    position: 'absolute',
+    top: '100%',
+  },
 });
 
 
-const mapStateToProps = (state) => {
-  return {user: state}
-}
+const mapStateToProps = state => ({
+  errors: state.errors,
+});
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
     login: user => {
       dispatch(login(user))

@@ -4,36 +4,26 @@ import { AsyncStorage } from "react-native";
 import setAuthToken from '../setAuthToken';
 import jwt_decode from 'jwt-decode';
 
+import { SENDING_DATA, SET_CURRENT_USER, SUCCESS } from './constants';
 
-export const LOGGING_OUT = 'SENDING_DATA';
-export const ERROR = 'ERROR';
-export const LOGGED_OUT = 'LOGGED_IN';
-export const SET_CURRENT_USER = 'SET_CURRENT_USER';
 
 export const loggingOut = () => {
   return {
-    type: LOGGING_OUT,
+    type: SENDING_DATA,
   }
 };
 
-export const loggedOut = (user) => {
+export const loggedOut = () => {
   return {
-    type: LOGGED_OUT,
+    type: SUCCESS,
   }
-}
-
-export const invalidLogOut = () => {
-  return {
-    type: ERROR,
-    payload: 'Invalid request',
-  }
-}
+};
 
 export const setCurrentUser = decoded => {
-    return {
-        type: SET_CURRENT_USER,
-        payload: decoded
-    }
+  return {
+    type: SET_CURRENT_USER,
+    payload: decoded
+  }
 }
 
 export default function logout() {

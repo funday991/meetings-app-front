@@ -46,7 +46,6 @@ class Signup extends Component {
   }
 
   handleRequest() {
-    alert(JSON.stringify(this.state.errors));
     const payload = {
       name: this.state.name,
       email: this.state.email,
@@ -82,25 +81,28 @@ class Signup extends Component {
           />
           <View style={styles.line} />
         </View>
+        {errors.name && <Text style={{color: 'red'}}>{errors.name}</Text>}
 
         <SignupForm
           secure={false}
           callback={this.onEmailChange.bind(this)}
           placeholder='EMAIL'
         />
-        {errors.email && alert(errors.email)}
+        {errors.email && <Text style={{color: 'red'}}>{errors.email}</Text>}
 
         <SignupForm
           secure
           callback={this.onPasswordChange.bind(this)}
           placeholder='PASSWORD'
         />
+        {errors.password && <Text style={{color: 'red'}}>{errors.password}</Text>}
 
         <SignupForm
           secure
           callback={this.onPasswordConfirmChange.bind(this)}
-          placeholder='REPEAT PASSWORD'
+          placeholder='CONFIRM PASSWORD'
         />
+        {errors.password_confirm && <Text style={{color: 'red'}}>{errors.password_confirm}</Text>}
 
         <TouchableOpacity
           style={styles.signupButton}

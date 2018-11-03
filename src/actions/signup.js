@@ -1,18 +1,8 @@
 import { Actions } from 'react-native-router-flux';
 import axios from 'axios';
 
+import { SENDING_DATA, SUCCESS, ERROR } from './constants';
 
-export const SAVE_PROFILE = 'SAVE_PROFILE';
-export const SENDING_DATA = 'SENDING_DATA';
-export const CREATED = 'CREATED';
-export const ERROR = 'ERROR';
-
-export const saveNewUser = (user) => {
-  return {
-    type: SAVE_PROFILE,
-    payload: user,
-  }
-};
 
 export const sendingNewData = () => {
   return {
@@ -22,11 +12,11 @@ export const sendingNewData = () => {
 
 export const createdUser = () => {
   return {
-    type: CREATED,
+    type: SUCCESS,
   }
 };
 
-export const invalidCreation = (errors) => {
+export const invalidCreation = errors => {
   return {
     type: ERROR,
     payload: errors,
@@ -35,6 +25,7 @@ export const invalidCreation = (errors) => {
 
 export default function createNewUser(payload) {
   return dispatch => {
+    dispatch(sendingNewData());
     axios
       .post('/api/users/register', payload)
       .then(response => {

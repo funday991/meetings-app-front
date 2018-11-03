@@ -1,16 +1,9 @@
-import newUserReducer from '../reducers/newUserReducer';
 import thunk from 'redux-thunk';
 import { createStore, applyMiddleware } from 'redux';
+import rootReducer from '../reducers';
 
 
-export const initialStore = {
-  user: {
-    username: '',
-    email: '',
-    password: '',
-  },
-  errors: {},
-}
+export const initialStore = {};
 
-const store = createStore(newUserReducer, applyMiddleware(thunk));
+const store = createStore(rootReducer, initialStore, applyMiddleware(thunk));
 export default store;
