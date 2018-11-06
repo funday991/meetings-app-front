@@ -5,6 +5,7 @@ import axios from 'axios';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import login from '../actions/login';
+import store from '../store/store';
 
 
 class Login extends Component {
@@ -228,7 +229,7 @@ const styles = StyleSheet.create({
     color: 'red',
     fontSize: 10,
     position: 'absolute',
-    top: '100%',
+    top: 50,
   },
 });
 

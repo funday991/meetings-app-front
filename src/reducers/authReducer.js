@@ -1,7 +1,4 @@
-import SENDING_DATA from '../actions/constants';
-import ERROR from '../actions/constants';
-import SUCCESS from '../actions/constants';
-import SET_CURRENT_USER from '../actions/constants';
+import { SENDING_DATA, SET_CURRENT_USER, SUCCESS, ERROR } from '../actions/constants';
 
 
 const initialStore = {
@@ -10,8 +7,7 @@ const initialStore = {
     fetching: false,
 }
 
-
-const logInReducer = (state=initialStore, action) => {
+const authReducer = (state=initialStore, action) => {
   switch (action.type) {
     case SENDING_DATA:
       return {
@@ -34,4 +30,4 @@ const logInReducer = (state=initialStore, action) => {
   }
 }
 
-export default logInReducer;
+export default authReducer;

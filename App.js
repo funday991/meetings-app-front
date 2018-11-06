@@ -24,7 +24,7 @@ export default class App extends Component {
   }
 
   componentWillMount() {
-    axios.defaults.baseURL = 'http://localhost:5000';
+    axios.defaults.baseURL = 'http://192.168.1.7:5000';
     axios.defaults.timeout = 60000;
   }
 

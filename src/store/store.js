@@ -5,5 +5,5 @@ import rootReducer from '../reducers';
 
 export const initialStore = {};
 
-const store = createStore(rootReducer, initialStore, applyMiddleware(thunk));
+const store = createStore(rootReducer, applyMiddleware(thunk));
 export default store;
